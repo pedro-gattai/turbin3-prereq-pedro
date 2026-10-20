@@ -1,13 +1,17 @@
 skip_local_validator = true
 
 [toolchain]
+package_manager = "pnpm"
 
 [features]
 resolution = true
 skip-lint = false
 
 [programs.localnet]
-pre_req_vault = "DBoobRVqT7PaAhq8obqo95723CHyWvcCLRUKvQ5wYWE4"
+pre_req_vault = "8PL7Lrg666iVa8W2pBdcJxC975c2UWAxgt8ry94DGQgd"
+
+[programs.devnet]
+pre_req_vault = "8PL7Lrg666iVa8W2pBdcJxC975c2UWAxgt8ry94DGQgd"
 
 [provider]
 cluster = "devnet"
