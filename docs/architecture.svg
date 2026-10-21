@@ -47,11 +47,13 @@
   <text x="420" y="398" text-anchor="middle" font-size="10.5" fill="#374151">no data — just holds lamports</text>
   <text x="420" y="416" text-anchor="middle" font-size="10.5" fill="#374151">program signs for it with its seeds</text>
 
-  <text x="420" y="470" text-anchor="middle" font-size="10.5" fill="#4b5563">Why two PDAs? VaultState keeps the bumps</text>
-  <text x="420" y="486" text-anchor="middle" font-size="10.5" fill="#4b5563">so later instructions re-derive both addresses</text>
-  <text x="420" y="502" text-anchor="middle" font-size="10.5" fill="#4b5563">cheaply. Vault is a plain System account so</text>
-  <text x="420" y="518" text-anchor="middle" font-size="10.5" fill="#4b5563">SOL moves in/out with ordinary System transfers.</text>
-  <text x="420" y="534" text-anchor="middle" font-size="10.5" fill="#4b5563">No private key exists for either address.</text>
+  <text x="420" y="462" text-anchor="middle" font-size="10.5" font-weight="700" fill="#166534">Why two accounts?</text>
+  <text x="420" y="480" text-anchor="middle" font-size="10.5" fill="#4b5563">VaultState is the on-chain record that this</text>
+  <text x="420" y="496" text-anchor="middle" font-size="10.5" fill="#4b5563">user's vault exists (plus its config, the bumps).</text>
+  <text x="420" y="512" text-anchor="middle" font-size="10.5" fill="#4b5563">② ③ ④ only run if it exists; ① only if it doesn't.</text>
+  <text x="420" y="530" text-anchor="middle" font-size="10.5" fill="#4b5563">Vault holds the SOL as a plain System account,</text>
+  <text x="420" y="546" text-anchor="middle" font-size="10.5" fill="#4b5563">so it can be filled and fully drained with</text>
+  <text x="420" y="562" text-anchor="middle" font-size="10.5" fill="#4b5563">normal transfers. No private key exists for either.</text>
 
   <!-- INSTRUCTIONS column (right), in order with sequence arrows -->
   <rect x="550" y="190" width="200" height="56" rx="8" fill="#ffffff" stroke="#16a34a"/>
@@ -71,12 +73,13 @@
   <text x="650" y="418" text-anchor="middle" font-size="10.5" font-weight="700" fill="#b45309">+ CPI registration.initialize(github)</text>
   <line x1="650" y1="422" x2="650" y2="444" stroke="#16a34a" stroke-width="2" marker-end="url(#arrowSeq)"/>
 
-  <rect x="550" y="446" width="200" height="56" rx="8" fill="#ffffff" stroke="#16a34a"/>
+  <rect x="550" y="446" width="200" height="72" rx="8" fill="#ffffff" stroke="#16a34a"/>
   <text x="650" y="468" text-anchor="middle" font-size="13" font-weight="700" fill="#14532d">4. close()</text>
-  <text x="650" y="487" text-anchor="middle" font-size="10.5" fill="#374151">sends ALL remaining SOL → user, closes VaultState</text>
+  <text x="650" y="486" text-anchor="middle" font-size="10.5" fill="#374151">whole remaining balance → user,</text>
+  <text x="650" y="500" text-anchor="middle" font-size="10.5" fill="#374151">then VaultState is closed</text>
 
-  <text x="650" y="534" text-anchor="middle" font-size="10.5" fill="#4b5563">① ② ④ are the original vault.</text>
-  <text x="650" y="550" text-anchor="middle" font-size="10.5" fill="#4b5563">The orange part of ③ is what I added.</text>
+  <text x="650" y="542" text-anchor="middle" font-size="10.5" fill="#4b5563">① ② ④ are the original vault.</text>
+  <text x="650" y="558" text-anchor="middle" font-size="10.5" fill="#4b5563">The orange part of ③ is what I added.</text>
 
   <!-- SYSTEM PROGRAM -->
   <rect x="300" y="700" width="470" height="70" rx="12" fill="#f3f4f6" stroke="#6b7280" stroke-width="2"/>
@@ -114,11 +117,12 @@
   <!-- STATE OVER TIME -->
   <rect x="860" y="580" width="350" height="190" rx="12" fill="#f9fafb" stroke="#d1d5db"/>
   <text x="1035" y="605" text-anchor="middle" font-size="13" font-weight="700" fill="#111827">State over time (one user, as in the tests)</text>
-  <text x="880" y="630" font-size="11" fill="#374151">① initialize → VaultState created (rent paid by user)</text>
-  <text x="880" y="652" font-size="11" fill="#374151">② deposit 1 SOL → Vault = 1 SOL</text>
-  <text x="880" y="674" font-size="11" fill="#374151">③ withdraw 0.5 SOL → Vault = 0.5 SOL</text>
-  <text x="880" y="692" font-size="11" font-weight="700" fill="#b45309">    + ApplicationAccount created with my GitHub</text>
-  <text x="880" y="714" font-size="11" fill="#374151">④ close → remaining 0.5 SOL + rent back to user, Vault = 0</text>
-  <text x="880" y="740" font-size="10.5" fill="#6b7280">Solid border = program · dashed = account (PDA)</text>
+  <text x="880" y="626" font-size="11" fill="#374151">① initialize → VaultState created, Vault = 0</text>
+  <text x="880" y="646" font-size="11" fill="#374151">② deposit 1 SOL → Vault = 1 SOL</text>
+  <text x="880" y="666" font-size="11" fill="#374151">③ withdraw 0.5 SOL → user gets 0.5, Vault = 0.5 SOL</text>
+  <text x="880" y="682" font-size="11" font-weight="700" fill="#b45309">    + ApplicationAccount created with my GitHub</text>
+  <text x="880" y="702" font-size="11" fill="#374151">④ close → user gets the 0.5 SOL still in Vault,</text>
+  <text x="880" y="718" font-size="11" fill="#374151">    Vault = 0, VaultState deleted (its rent refunded)</text>
+  <text x="880" y="742" font-size="10.5" fill="#6b7280">Solid border = program · dashed = account (PDA)</text>
   <text x="880" y="756" font-size="10.5" fill="#6b7280">orange = what I added for the challenge</text>
 </svg>
