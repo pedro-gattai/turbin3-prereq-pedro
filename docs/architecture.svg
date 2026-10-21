@@ -73,7 +73,7 @@
 
   <rect x="550" y="446" width="200" height="56" rx="8" fill="#ffffff" stroke="#16a34a"/>
   <text x="650" y="468" text-anchor="middle" font-size="13" font-weight="700" fill="#14532d">4. close()</text>
-  <text x="650" y="487" text-anchor="middle" font-size="10.5" fill="#374151">drains vault → user, closes VaultState</text>
+  <text x="650" y="487" text-anchor="middle" font-size="10.5" fill="#374151">sends ALL remaining SOL → user, closes VaultState</text>
 
   <text x="650" y="534" text-anchor="middle" font-size="10.5" fill="#4b5563">① ② ④ are the original vault.</text>
   <text x="650" y="550" text-anchor="middle" font-size="10.5" fill="#4b5563">The orange part of ③ is what I added.</text>
@@ -81,7 +81,7 @@
   <!-- SYSTEM PROGRAM -->
   <rect x="300" y="700" width="470" height="70" rx="12" fill="#f3f4f6" stroke="#6b7280" stroke-width="2"/>
   <text x="535" y="728" text-anchor="middle" font-size="14" font-weight="700" fill="#111827">System program</text>
-  <text x="535" y="748" text-anchor="middle" font-size="11" fill="#4b5563">CPI transfer() in ② ③ ④ · creates accounts in ① and in the registration CPI</text>
+  <text x="535" y="748" text-anchor="middle" font-size="11" fill="#4b5563">creates accounts in ① (and in the registration CPI) · transfer() moves SOL in ② ③ ④</text>
   <line x1="535" y1="660" x2="535" y2="700" stroke="#1f2937" stroke-width="2" marker-end="url(#arrow)"/>
   <text x="600" y="684" text-anchor="middle" font-size="10.5" fill="#1f2937">CPI: transfer</text>
 
@@ -118,7 +118,7 @@
   <text x="880" y="652" font-size="11" fill="#374151">② deposit 1 SOL → Vault = 1 SOL</text>
   <text x="880" y="674" font-size="11" fill="#374151">③ withdraw 0.5 SOL → Vault = 0.5 SOL</text>
   <text x="880" y="692" font-size="11" font-weight="700" fill="#b45309">    + ApplicationAccount created with my GitHub</text>
-  <text x="880" y="714" font-size="11" fill="#374151">④ close → Vault = 0, VaultState deleted, rent back</text>
+  <text x="880" y="714" font-size="11" fill="#374151">④ close → remaining 0.5 SOL + rent back to user, Vault = 0</text>
   <text x="880" y="740" font-size="10.5" fill="#6b7280">Solid border = program · dashed = account (PDA)</text>
   <text x="880" y="756" font-size="10.5" fill="#6b7280">orange = what I added for the challenge</text>
 </svg>
