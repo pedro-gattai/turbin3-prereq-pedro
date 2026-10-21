@@ -1,118 +1,124 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="760" viewBox="0 0 1200 760" font-family="Inter, Helvetica, Arial, sans-serif">
+<svg xmlns="http://www.w3.org/2000/svg" width="1240" height="800" viewBox="0 0 1240 800" font-family="Inter, Helvetica, Arial, sans-serif">
   <defs>
     <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
       <path d="M0,0 L10,5 L0,10 z" fill="#1f2937"/>
+    </marker>
+    <marker id="arrowSeq" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#16a34a"/>
     </marker>
     <marker id="arrowCpi" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
       <path d="M0,0 L10,5 L0,10 z" fill="#b45309"/>
     </marker>
   </defs>
-  <rect width="1200" height="760" fill="#ffffff"/>
-  <text x="600" y="36" text-anchor="middle" font-size="22" font-weight="700" fill="#111827">Pre-req Vault — architecture (Solana devnet, Anchor 1.1)</text>
-  <text x="600" y="58" text-anchor="middle" font-size="13" fill="#6b7280">A per-user SOL vault. Withdrawing also registers the user in Turbin3's registration program through a CPI.</text>
+  <rect width="1240" height="800" fill="#ffffff"/>
+  <text x="620" y="36" text-anchor="middle" font-size="22" font-weight="700" fill="#111827">Pre-req Vault — architecture (Solana devnet, Anchor 1.1)</text>
+  <text x="620" y="58" text-anchor="middle" font-size="13" fill="#6b7280">A per-user SOL vault. Instructions run in order 1→4. Step 3 also registers the user in Turbin3's registration program through a CPI.</text>
 
   <!-- USER -->
   <rect x="30" y="300" width="195" height="110" rx="12" fill="#eef2ff" stroke="#4f46e5" stroke-width="2"/>
   <text x="127" y="330" text-anchor="middle" font-size="15" font-weight="700" fill="#312e81">User wallet</text>
   <text x="127" y="352" text-anchor="middle" font-size="12" fill="#3730a3">signer + payer</text>
-  <text x="127" y="372" text-anchor="middle" font-size="11" fill="#4b5563">sends 4 instructions:</text>
-  <text x="127" y="390" text-anchor="middle" font-size="11" fill="#4b5563">initialize · deposit · withdraw · close</text>
-
-  <!-- VAULT PROGRAM -->
-  <rect x="300" y="110" width="430" height="500" rx="14" fill="#f0fdf4" stroke="#16a34a" stroke-width="2"/>
-  <text x="515" y="138" text-anchor="middle" font-size="16" font-weight="700" fill="#14532d">Vault program (pre_req_vault)</text>
-  <text x="515" y="156" text-anchor="middle" font-size="11" fill="#166534">deployed by me · program id in Anchor.toml / declare_id!</text>
-
-  <!-- instructions -->
-  <rect x="320" y="175" width="190" height="52" rx="8" fill="#ffffff" stroke="#16a34a"/>
-  <text x="415" y="196" text-anchor="middle" font-size="13" font-weight="700" fill="#14532d">1. initialize()</text>
-  <text x="415" y="214" text-anchor="middle" font-size="10.5" fill="#374151">creates VaultState, stores bumps</text>
-
-  <rect x="520" y="175" width="190" height="52" rx="8" fill="#ffffff" stroke="#16a34a"/>
-  <text x="615" y="196" text-anchor="middle" font-size="13" font-weight="700" fill="#14532d">2. deposit(amount)</text>
-  <text x="615" y="214" text-anchor="middle" font-size="10.5" fill="#374151">user → vault (System transfer)</text>
-
-  <rect x="520" y="240" width="190" height="66" rx="8" fill="#fff7ed" stroke="#ea580c" stroke-width="2"/>
-  <text x="615" y="261" text-anchor="middle" font-size="13" font-weight="700" fill="#7c2d12">3. withdraw(amount, github)</text>
-  <text x="615" y="278" text-anchor="middle" font-size="10.5" fill="#374151">vault → user, signed by vault PDA</text>
-  <text x="615" y="294" text-anchor="middle" font-size="10.5" font-weight="700" fill="#b45309">+ CPI registration.initialize(github)</text>
-
-  <rect x="320" y="240" width="190" height="66" rx="8" fill="#ffffff" stroke="#16a34a"/>
-  <text x="415" y="261" text-anchor="middle" font-size="13" font-weight="700" fill="#14532d">4. close()</text>
-  <text x="415" y="278" text-anchor="middle" font-size="10.5" fill="#374151">drains vault → user,</text>
-  <text x="415" y="294" text-anchor="middle" font-size="10.5" fill="#374151">closes VaultState (rent → user)</text>
-
-  <!-- accounts owned by vault program -->
-  <text x="515" y="340" text-anchor="middle" font-size="12" font-weight="700" fill="#166534">Accounts (PDAs, one pair per user)</text>
-
-  <rect x="320" y="355" width="190" height="110" rx="8" fill="#ffffff" stroke="#16a34a" stroke-dasharray="5 3"/>
-  <text x="415" y="377" text-anchor="middle" font-size="13" font-weight="700" fill="#14532d">VaultState</text>
-  <text x="415" y="395" text-anchor="middle" font-size="10.5" fill="#374151">seeds = ["state", user]</text>
-  <text x="415" y="412" text-anchor="middle" font-size="10.5" fill="#374151">owner: vault program</text>
-  <text x="415" y="430" text-anchor="middle" font-size="10.5" fill="#374151">{ vault_bump: u8, state_bump: u8 }</text>
-  <text x="415" y="448" text-anchor="middle" font-size="10.5" fill="#374151">8 + 2 bytes</text>
-
-  <rect x="520" y="355" width="190" height="110" rx="8" fill="#ffffff" stroke="#16a34a" stroke-dasharray="5 3"/>
-  <text x="615" y="377" text-anchor="middle" font-size="13" font-weight="700" fill="#14532d">Vault</text>
-  <text x="615" y="395" text-anchor="middle" font-size="10.5" fill="#374151">seeds = ["vault", vault_state]</text>
-  <text x="615" y="412" text-anchor="middle" font-size="10.5" fill="#374151">owner: System program</text>
-  <text x="615" y="430" text-anchor="middle" font-size="10.5" fill="#374151">no data — just holds lamports</text>
-  <text x="615" y="448" text-anchor="middle" font-size="10.5" fill="#374151">program signs with its seeds</text>
-
-  <text x="515" y="495" text-anchor="middle" font-size="11" fill="#4b5563">Why two PDAs? VaultState keeps the bumps so later instructions</text>
-  <text x="515" y="511" text-anchor="middle" font-size="11" fill="#4b5563">re-derive the addresses cheaply; Vault is a plain System account</text>
-  <text x="515" y="527" text-anchor="middle" font-size="11" fill="#4b5563">so SOL can move in/out with ordinary System transfers.</text>
-
-  <!-- SYSTEM PROGRAM -->
-  <rect x="300" y="650" width="430" height="70" rx="12" fill="#f3f4f6" stroke="#6b7280" stroke-width="2"/>
-  <text x="515" y="678" text-anchor="middle" font-size="14" font-weight="700" fill="#111827">System program</text>
-  <text x="515" y="698" text-anchor="middle" font-size="11" fill="#4b5563">CPI transfer() for deposit / withdraw / close · creates accounts</text>
-
-  <!-- REGISTRATION PROGRAM -->
-  <rect x="820" y="180" width="340" height="300" rx="14" fill="#fffbeb" stroke="#d97706" stroke-width="2"/>
-  <text x="990" y="208" text-anchor="middle" font-size="16" font-weight="700" fill="#78350f">Registration program (Turbin3)</text>
-  <text x="990" y="226" text-anchor="middle" font-size="10.5" fill="#92400e">TRBZyQHB3m68FGeVsqTK39Wm4xejadjVhP5MAZaKWDM</text>
-  <text x="990" y="242" text-anchor="middle" font-size="10.5" fill="#92400e">known only through its IDL (declare_program!)</text>
-
-  <rect x="840" y="258" width="300" height="46" rx="8" fill="#ffffff" stroke="#d97706"/>
-  <text x="990" y="278" text-anchor="middle" font-size="13" font-weight="700" fill="#78350f">initialize(github: String)</text>
-  <text x="990" y="295" text-anchor="middle" font-size="10.5" fill="#374151">accounts: user (signer, payer) · account · system</text>
-
-  <rect x="840" y="320" width="300" height="140" rx="8" fill="#ffffff" stroke="#d97706" stroke-dasharray="5 3"/>
-  <text x="990" y="342" text-anchor="middle" font-size="13" font-weight="700" fill="#78350f">ApplicationAccount</text>
-  <text x="990" y="360" text-anchor="middle" font-size="10.5" fill="#374151">seeds = ["prereqs", user] · owner: registration</text>
-  <text x="990" y="380" text-anchor="middle" font-size="10.5" fill="#374151">{ user: Pubkey, bump: u8,</text>
-  <text x="990" y="396" text-anchor="middle" font-size="10.5" fill="#374151">  pre_req_ts: bool, pre_req_rs: bool,</text>
-  <text x="990" y="412" text-anchor="middle" font-size="10.5" fill="#374151">  github: String }</text>
-  <text x="990" y="436" text-anchor="middle" font-size="10.5" font-weight="700" fill="#b45309">one per wallet — init fails if it exists</text>
-
-  <!-- ARROWS -->
-  <!-- user -> vault program -->
+  <text x="127" y="372" text-anchor="middle" font-size="11" fill="#4b5563">sends 4 transactions,</text>
+  <text x="127" y="390" text-anchor="middle" font-size="11" fill="#4b5563">one per instruction</text>
   <line x1="225" y1="355" x2="300" y2="355" stroke="#1f2937" stroke-width="2" marker-end="url(#arrow)"/>
   <text x="262" y="345" text-anchor="middle" font-size="10.5" fill="#1f2937">txs</text>
 
-  <!-- vault program -> system program -->
-  <line x1="515" y1="610" x2="515" y2="650" stroke="#1f2937" stroke-width="2" marker-end="url(#arrow)"/>
-  <text x="590" y="635" text-anchor="middle" font-size="10.5" fill="#1f2937">CPI: transfer</text>
+  <!-- VAULT PROGRAM -->
+  <rect x="300" y="100" width="470" height="560" rx="14" fill="#f0fdf4" stroke="#16a34a" stroke-width="2"/>
+  <text x="535" y="128" text-anchor="middle" font-size="16" font-weight="700" fill="#14532d">Vault program (pre_req_vault)</text>
+  <text x="535" y="146" text-anchor="middle" font-size="11" fill="#166534">deployed by me · 8PL7Lrg666iVa8W2pBdcJxC975c2UWAxgt8ry94DGQgd</text>
 
-  <!-- withdraw -> registration (CPI) -->
-  <line x1="710" y1="281" x2="840" y2="281" stroke="#b45309" stroke-width="2.5" marker-end="url(#arrowCpi)"/>
-  <text x="775" y="268" text-anchor="middle" font-size="11" font-weight="700" fill="#b45309">CPI</text>
-  <text x="775" y="298" text-anchor="middle" font-size="9.5" fill="#b45309">user signature</text>
-  <text x="775" y="310" text-anchor="middle" font-size="9.5" fill="#b45309">is forwarded</text>
+  <!-- column headers -->
+  <text x="420" y="178" text-anchor="middle" font-size="12" font-weight="700" fill="#166534">Accounts (PDAs, one pair per user)</text>
+  <text x="650" y="178" text-anchor="middle" font-size="12" font-weight="700" fill="#166534">Instructions (in order)</text>
 
-  <!-- registration -> application account creation -->
-  <line x1="990" y1="304" x2="990" y2="320" stroke="#b45309" stroke-width="2" marker-end="url(#arrowCpi)"/>
-  <text x="1075" y="316" text-anchor="start" font-size="10" fill="#b45309">creates</text>
+  <!-- ACCOUNTS column (left) -->
+  <rect x="320" y="190" width="200" height="118" rx="8" fill="#ffffff" stroke="#16a34a" stroke-dasharray="5 3"/>
+  <text x="420" y="212" text-anchor="middle" font-size="13" font-weight="700" fill="#14532d">VaultState</text>
+  <text x="420" y="231" text-anchor="middle" font-size="10.5" fill="#374151">seeds = ["state", user]</text>
+  <text x="420" y="248" text-anchor="middle" font-size="10.5" fill="#374151">owner: vault program</text>
+  <text x="420" y="266" text-anchor="middle" font-size="10.5" fill="#374151">{ vault_bump: u8, state_bump: u8 }</text>
+  <text x="420" y="284" text-anchor="middle" font-size="10.5" fill="#374151">8 + 2 bytes · created in ①, closed in ④</text>
 
-  <!-- LEGEND / LIFECYCLE -->
-  <rect x="820" y="520" width="340" height="200" rx="12" fill="#f9fafb" stroke="#d1d5db"/>
-  <text x="990" y="545" text-anchor="middle" font-size="13" font-weight="700" fill="#111827">State over time (one user)</text>
-  <text x="840" y="570" font-size="11" fill="#374151">① initialize → VaultState created (rent paid by user)</text>
-  <text x="840" y="592" font-size="11" fill="#374151">② deposit 1 SOL → Vault balance = 1 SOL</text>
-  <text x="840" y="614" font-size="11" fill="#374151">③ withdraw 0.5 SOL → Vault = 0.5 SOL</text>
-  <text x="840" y="632" font-size="11" font-weight="700" fill="#b45309">    + ApplicationAccount created with my GitHub</text>
-  <text x="840" y="654" font-size="11" fill="#374151">④ close → Vault = 0, VaultState deleted, rent back</text>
-  <text x="840" y="680" font-size="10.5" fill="#6b7280">Solid border = program · dashed = account (PDA)</text>
-  <text x="840" y="698" font-size="10.5" fill="#6b7280">orange = what I added for the challenge</text>
+  <rect x="320" y="322" width="200" height="118" rx="8" fill="#ffffff" stroke="#16a34a" stroke-dasharray="5 3"/>
+  <text x="420" y="344" text-anchor="middle" font-size="13" font-weight="700" fill="#14532d">Vault</text>
+  <text x="420" y="363" text-anchor="middle" font-size="10.5" fill="#374151">seeds = ["vault", vault_state]</text>
+  <text x="420" y="380" text-anchor="middle" font-size="10.5" fill="#374151">owner: System program</text>
+  <text x="420" y="398" text-anchor="middle" font-size="10.5" fill="#374151">no data — just holds lamports</text>
+  <text x="420" y="416" text-anchor="middle" font-size="10.5" fill="#374151">program signs for it with its seeds</text>
+
+  <text x="420" y="470" text-anchor="middle" font-size="10.5" fill="#4b5563">Why two PDAs? VaultState keeps the bumps</text>
+  <text x="420" y="486" text-anchor="middle" font-size="10.5" fill="#4b5563">so later instructions re-derive both addresses</text>
+  <text x="420" y="502" text-anchor="middle" font-size="10.5" fill="#4b5563">cheaply. Vault is a plain System account so</text>
+  <text x="420" y="518" text-anchor="middle" font-size="10.5" fill="#4b5563">SOL moves in/out with ordinary System transfers.</text>
+  <text x="420" y="534" text-anchor="middle" font-size="10.5" fill="#4b5563">No private key exists for either address.</text>
+
+  <!-- INSTRUCTIONS column (right), in order with sequence arrows -->
+  <rect x="550" y="190" width="200" height="56" rx="8" fill="#ffffff" stroke="#16a34a"/>
+  <text x="650" y="212" text-anchor="middle" font-size="13" font-weight="700" fill="#14532d">1. initialize()</text>
+  <text x="650" y="231" text-anchor="middle" font-size="10.5" fill="#374151">creates VaultState, stores both bumps</text>
+  <line x1="650" y1="246" x2="650" y2="268" stroke="#16a34a" stroke-width="2" marker-end="url(#arrowSeq)"/>
+
+  <rect x="550" y="270" width="200" height="56" rx="8" fill="#ffffff" stroke="#16a34a"/>
+  <text x="650" y="292" text-anchor="middle" font-size="13" font-weight="700" fill="#14532d">2. deposit(amount)</text>
+  <text x="650" y="311" text-anchor="middle" font-size="10.5" fill="#374151">System transfer: user → vault</text>
+  <line x1="650" y1="326" x2="650" y2="348" stroke="#16a34a" stroke-width="2" marker-end="url(#arrowSeq)"/>
+
+  <rect x="550" y="350" width="200" height="72" rx="8" fill="#fff7ed" stroke="#ea580c" stroke-width="2"/>
+  <text x="650" y="372" text-anchor="middle" font-size="13" font-weight="700" fill="#7c2d12">3. withdraw(amount, github)</text>
+  <text x="650" y="390" text-anchor="middle" font-size="10.5" fill="#374151">System transfer: vault → user,</text>
+  <text x="650" y="404" text-anchor="middle" font-size="10.5" fill="#374151">signed by the vault PDA seeds</text>
+  <text x="650" y="418" text-anchor="middle" font-size="10.5" font-weight="700" fill="#b45309">+ CPI registration.initialize(github)</text>
+  <line x1="650" y1="422" x2="650" y2="444" stroke="#16a34a" stroke-width="2" marker-end="url(#arrowSeq)"/>
+
+  <rect x="550" y="446" width="200" height="56" rx="8" fill="#ffffff" stroke="#16a34a"/>
+  <text x="650" y="468" text-anchor="middle" font-size="13" font-weight="700" fill="#14532d">4. close()</text>
+  <text x="650" y="487" text-anchor="middle" font-size="10.5" fill="#374151">drains vault → user, closes VaultState</text>
+
+  <text x="650" y="534" text-anchor="middle" font-size="10.5" fill="#4b5563">① ② ④ are the original vault.</text>
+  <text x="650" y="550" text-anchor="middle" font-size="10.5" fill="#4b5563">The orange part of ③ is what I added.</text>
+
+  <!-- SYSTEM PROGRAM -->
+  <rect x="300" y="700" width="470" height="70" rx="12" fill="#f3f4f6" stroke="#6b7280" stroke-width="2"/>
+  <text x="535" y="728" text-anchor="middle" font-size="14" font-weight="700" fill="#111827">System program</text>
+  <text x="535" y="748" text-anchor="middle" font-size="11" fill="#4b5563">CPI transfer() in ② ③ ④ · creates accounts in ① and in the registration CPI</text>
+  <line x1="535" y1="660" x2="535" y2="700" stroke="#1f2937" stroke-width="2" marker-end="url(#arrow)"/>
+  <text x="600" y="684" text-anchor="middle" font-size="10.5" fill="#1f2937">CPI: transfer</text>
+
+  <!-- REGISTRATION PROGRAM -->
+  <rect x="860" y="250" width="350" height="300" rx="14" fill="#fffbeb" stroke="#d97706" stroke-width="2"/>
+  <text x="1035" y="278" text-anchor="middle" font-size="16" font-weight="700" fill="#78350f">Registration program (Turbin3)</text>
+  <text x="1035" y="296" text-anchor="middle" font-size="10.5" fill="#92400e">TRBZyQHB3m68FGeVsqTK39Wm4xejadjVhP5MAZaKWDM</text>
+  <text x="1035" y="312" text-anchor="middle" font-size="10.5" fill="#92400e">known only through its IDL (declare_program!)</text>
+
+  <rect x="880" y="328" width="310" height="46" rx="8" fill="#ffffff" stroke="#d97706"/>
+  <text x="1035" y="348" text-anchor="middle" font-size="13" font-weight="700" fill="#78350f">initialize(github: String)</text>
+  <text x="1035" y="365" text-anchor="middle" font-size="10.5" fill="#374151">accounts: user (signer, payer) · account · system</text>
+  <line x1="1035" y1="374" x2="1035" y2="392" stroke="#b45309" stroke-width="2" marker-end="url(#arrowCpi)"/>
+  <text x="1110" y="388" text-anchor="start" font-size="10" fill="#b45309">creates</text>
+
+  <rect x="880" y="394" width="310" height="140" rx="8" fill="#ffffff" stroke="#d97706" stroke-dasharray="5 3"/>
+  <text x="1035" y="416" text-anchor="middle" font-size="13" font-weight="700" fill="#78350f">ApplicationAccount</text>
+  <text x="1035" y="434" text-anchor="middle" font-size="10.5" fill="#374151">seeds = ["prereqs", user] · owner: registration</text>
+  <text x="1035" y="454" text-anchor="middle" font-size="10.5" fill="#374151">{ user: Pubkey, bump: u8,</text>
+  <text x="1035" y="470" text-anchor="middle" font-size="10.5" fill="#374151">  pre_req_ts: bool, pre_req_rs: bool,</text>
+  <text x="1035" y="486" text-anchor="middle" font-size="10.5" fill="#374151">  github: String }</text>
+  <text x="1035" y="512" text-anchor="middle" font-size="10.5" font-weight="700" fill="#b45309">one per wallet — init fails if it already exists</text>
+
+  <!-- CPI arrow: withdraw -> registration.initialize -->
+  <path d="M 750 386 L 800 386 L 800 351 L 880 351" fill="none" stroke="#b45309" stroke-width="2.5" marker-end="url(#arrowCpi)"/>
+  <text x="815" y="340" text-anchor="middle" font-size="11" font-weight="700" fill="#b45309">CPI</text>
+  <text x="812" y="404" text-anchor="middle" font-size="9.5" fill="#b45309">user signature</text>
+  <text x="812" y="416" text-anchor="middle" font-size="9.5" fill="#b45309">is forwarded</text>
+
+  <!-- STATE OVER TIME -->
+  <rect x="860" y="580" width="350" height="190" rx="12" fill="#f9fafb" stroke="#d1d5db"/>
+  <text x="1035" y="605" text-anchor="middle" font-size="13" font-weight="700" fill="#111827">State over time (one user, as in the tests)</text>
+  <text x="880" y="630" font-size="11" fill="#374151">① initialize → VaultState created (rent paid by user)</text>
+  <text x="880" y="652" font-size="11" fill="#374151">② deposit 1 SOL → Vault = 1 SOL</text>
+  <text x="880" y="674" font-size="11" fill="#374151">③ withdraw 0.5 SOL → Vault = 0.5 SOL</text>
+  <text x="880" y="692" font-size="11" font-weight="700" fill="#b45309">    + ApplicationAccount created with my GitHub</text>
+  <text x="880" y="714" font-size="11" fill="#374151">④ close → Vault = 0, VaultState deleted, rent back</text>
+  <text x="880" y="740" font-size="10.5" fill="#6b7280">Solid border = program · dashed = account (PDA)</text>
+  <text x="880" y="756" font-size="10.5" fill="#6b7280">orange = what I added for the challenge</text>
 </svg>
