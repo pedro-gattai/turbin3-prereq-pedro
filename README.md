@@ -10,7 +10,7 @@ registration program through a Cross-Program Invocation (CPI).
 | **Application account created by the CPI** | [`2bAUuZhMWLAP2fZUnAvyV1nW8YMQWxdhdvwq6xmbrBm5`](https://explorer.solana.com/address/2bAUuZhMWLAP2fZUnAvyV1nW8YMQWxdhdvwq6xmbrBm5?cluster=devnet) |
 | **Registration program (Turbin3)** | `TRBZyQHB3m68FGeVsqTK39Wm4xejadjVhP5MAZaKWDM` |
 | **Architecture diagram** | [`docs/architecture.svg`](docs/architecture.svg) · [PNG](docs/architecture.png) |
-| **Video (3 min)** | _VIDEO_URL_ |
+| **Video (3 min)** | [youtu.be/shz_vM90OwE](https://youtu.be/shz_vM90OwE) |
 | **Upstream repo** | [ShrinathNR/pre-req-vault](https://github.com/ShrinathNR/pre-req-vault) |
 
 ## Architecture
